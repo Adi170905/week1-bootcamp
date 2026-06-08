@@ -1,12 +1,13 @@
 #!/bin/bash
 
-LOG_FILE="logs/validation.log"
-
 mkdir -p logs
+mkdir -p artifacts
+
+LOG_FILE="logs/validation.log"
 
 echo "[$(date)] Validation started" >> $LOG_FILE
 
-# Check if src folder exists
+# Check src folder
 if [ -d "src" ]; then
     echo "src folder exists" >> $LOG_FILE
 else
@@ -21,4 +22,4 @@ else
 fi
 
 echo "Validation successful!" >> $LOG_FILE
-echo "Validation passed!"
+echo "Validation Passed ✅"
