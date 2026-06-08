@@ -908,12 +908,7 @@ app.get(
                     "Validation Passed ✅"
             });
 
-        } else {
-
-            res.json({
-                message:
-                    "Validation Failed ❌"
-            });
+       
         }
     }
 );
