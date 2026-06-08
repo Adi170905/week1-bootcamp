@@ -1,0 +1,6 @@
+git bisect start
+git bisect bad
+git bisect good f6a0025
+
+Result:
+Bug commit identified successfully.

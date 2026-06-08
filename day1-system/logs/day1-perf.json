@@ -1,0 +1,10 @@
+{
+  "buffer": {
+    "method": "fs.readFileSync",
+    "observation": "Entire file loaded into memory"
+  },
+  "stream": {
+    "method": "fs.createReadStream",
+    "observation": "File processed in chunks"
+  }
+}

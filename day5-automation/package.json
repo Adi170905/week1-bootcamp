@@ -1,0 +1,19 @@
+{
+  "name": "day5-automation",
+  "version": "1.0.0",
+  "description": "Day 5 Automation Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No tests\"",
+    "lint": "eslint src/**/*.js"
+    "prepare": "husky"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.4.1",
+    "husky": "^9.1.7",
+    "prettier": "^3.8.3"
+  }
+}

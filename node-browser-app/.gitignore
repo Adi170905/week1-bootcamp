@@ -1,0 +1,5 @@
+node_modules/
+largefile.txt
+corpus.txt
+output/
+logs/

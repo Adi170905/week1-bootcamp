@@ -1,0 +1,7 @@
+git stash
+git status
+git stash apply
+git status
+
+Result:
+Temporary work was hidden and restored successfully.
