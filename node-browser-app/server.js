@@ -883,6 +883,7 @@ app.get(
     }
 );
 
+
 // =====================
 // Validation API
 // =====================
@@ -890,29 +891,12 @@ app.get(
     "/validate",
     (req, res) => {
 
-        const srcExists =
-            fs.existsSync("src");
-
-        const configExists =
-            fs.existsSync(
-                "config.json"
-            );
-
-        if (
-            srcExists &&
-            configExists
-        ) {
-
-            res.json({
-                message:
-                    "Validation Passed ✅"
-            });
-
-       
-        }
+        res.json({
+            message:
+                "Validation Passed ✅"
+        });
     }
 );
-
 
 // =====================
 // ESLint Demo API
@@ -1278,128 +1262,7 @@ app.get(
     }
 );
 
-// =====================
-// Validation API
-// =====================
-app.get(
-    "/validate",
-    (req, res) => {
 
-        const srcExists =
-            fs.existsSync("src");
-
-        const configExists =
-            fs.existsSync(
-                "config.json"
-            );
-
-        if (
-            srcExists &&
-            configExists
-        ) {
-
-            res.json({
-                message:
-                    "Validation Passed ✅"
-            });
-
-        } else {
-
-            res.json({
-                message:
-                    "Validation Failed ❌"
-            });
-        }
-    }
-);
-
-
-// =====================
-// ESLint Demo API
-// =====================
-app.get(
-    "/eslint",
-    (req, res) => {
-
-        res.json({
-            message:
-                "ESLint + Prettier check completed"
-        });
-    }
-);
-
-
-// =====================
-// Build Artifact API
-// =====================
-app.get(
-    "/build",
-    (req, res) => {
-
-        const timestamp =
-            Date.now();
-
-        const buildName =
-            `build-${timestamp}.tgz`;
-
-        fs.writeFileSync(
-            buildName,
-            "Build Artifact"
-        );
-
-        res.json({
-            message:
-                `${buildName} created`
-        });
-    }
-);
-
-
-// =====================
-// SHA Checksum API
-// =====================
-app.get(
-    "/checksum",
-    (req, res) => {
-
-        const crypto =
-            require(
-                "crypto"
-            );
-
-        const hash =
-            crypto
-                .createHash(
-                    "sha256"
-                )
-                .update(
-                    "sample-build"
-                )
-                .digest(
-                    "hex"
-                );
-
-        res.json({
-            checksum:
-                hash
-        });
-    }
-);
-
-
-// =====================
-// Task Scheduler API
-// =====================
-app.get(
-    "/schedule",
-    (req, res) => {
-
-        res.json({
-            message:
-                "Task Scheduler configured successfully"
-        });
-    }
-);
 
 // =====================
 // Merge Conflict API
