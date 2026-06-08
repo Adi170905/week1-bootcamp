@@ -883,7 +883,6 @@ app.get(
     }
 );
 
-
 // =====================
 // Validation API
 // =====================
@@ -891,12 +890,34 @@ app.get(
     "/validate",
     (req, res) => {
 
-        res.json({
-            message:
-                "Validation Passed ✅"
-        });
+        const srcExists =
+            fs.existsSync("src");
+
+        const configExists =
+            fs.existsSync(
+                "config.json"
+            );
+
+        if (
+            srcExists &&
+            configExists
+        ) {
+
+            res.json({
+                message:
+                    "Validation Passed ✅"
+            });
+
+        } else {
+
+            res.json({
+                message:
+                    "Validation Failed ❌"
+            });
+        }
     }
 );
+
 
 // =====================
 // ESLint Demo API
@@ -1010,51 +1031,59 @@ Manual resolution required.`
 // =====================
 // Git Revert API
 // =====================
-// =====================
-// Git Revert API
-// =====================
 app.get(
     "/git-revert",
     (req, res) => {
 
         exec(
-            'git config --global user.email "aditya@example.com"',
-            () => {
+            "git log --oneline -1",
+            (
+                error,
+                stdout
+            ) => {
+
+                if (error) {
+
+                    return res.json({
+                        output:
+                            error.message
+                    });
+                }
+
+                const commitId =
+                    stdout
+                        .split(" ")[0];
 
                 exec(
-                    'git config --global user.name "Aditya Ravi"',
-                    () => {
+                    `git revert ${commitId} --no-edit`,
+                    (
+                        err,
+                        out,
+                        stderr
+                    ) => {
 
-                        exec(
-                            "git revert HEAD --no-edit",
-                            (
-                                error,
-                                stdout,
-                                stderr
-                            ) => {
+                        if (err) {
 
-                                if (error) {
+                            return res.json({
+                                output:
+                                    stderr
+                                || err.message
+                            });
+                        }
 
-                                    return res.json({
-                                        output:
-                                            stderr
-                                        || error.message
-                                    });
-                                }
-
-                                res.json({
-                                    output:
-                                        stdout
-                                    || stderr
-                                });
-                            }
-                        );
+                        res.json({
+                            output:
+                                out
+                            || stderr
+                        });
                     }
                 );
             }
         );
     }
 );
+
+
 // =====================
 // Git Bisect API
 // =====================
@@ -1062,10 +1091,31 @@ app.get(
     "/git-bisect",
     (req, res) => {
 
-        res.json({
-            output:
-                "Git bisect demo executed successfully"
-        });
+        exec(
+            "git bisect start",
+            (
+                error,
+                stdout,
+                stderr
+            ) => {
+
+                if (error) {
+
+                    return res.json({
+                        output:
+                            stderr
+                        || error.message
+                    });
+                }
+
+                res.json({
+                    output:
+                        stdout
+                    || stderr
+                    || "status: waiting for both good and bad commits"
+                });
+            }
+        );
     }
 );
 
@@ -1233,7 +1283,128 @@ app.get(
     }
 );
 
+// =====================
+// Validation API
+// =====================
+app.get(
+    "/validate",
+    (req, res) => {
 
+        const srcExists =
+            fs.existsSync("src");
+
+        const configExists =
+            fs.existsSync(
+                "config.json"
+            );
+
+        if (
+            srcExists &&
+            configExists
+        ) {
+
+            res.json({
+                message:
+                    "Validation Passed ✅"
+            });
+
+        } else {
+
+            res.json({
+                message:
+                    "Validation Failed ❌"
+            });
+        }
+    }
+);
+
+
+// =====================
+// ESLint Demo API
+// =====================
+app.get(
+    "/eslint",
+    (req, res) => {
+
+        res.json({
+            message:
+                "ESLint + Prettier check completed"
+        });
+    }
+);
+
+
+// =====================
+// Build Artifact API
+// =====================
+app.get(
+    "/build",
+    (req, res) => {
+
+        const timestamp =
+            Date.now();
+
+        const buildName =
+            `build-${timestamp}.tgz`;
+
+        fs.writeFileSync(
+            buildName,
+            "Build Artifact"
+        );
+
+        res.json({
+            message:
+                `${buildName} created`
+        });
+    }
+);
+
+
+// =====================
+// SHA Checksum API
+// =====================
+app.get(
+    "/checksum",
+    (req, res) => {
+
+        const crypto =
+            require(
+                "crypto"
+            );
+
+        const hash =
+            crypto
+                .createHash(
+                    "sha256"
+                )
+                .update(
+                    "sample-build"
+                )
+                .digest(
+                    "hex"
+                );
+
+        res.json({
+            checksum:
+                hash
+        });
+    }
+);
+
+
+// =====================
+// Task Scheduler API
+// =====================
+app.get(
+    "/schedule",
+    (req, res) => {
+
+        res.json({
+            message:
+                "Task Scheduler configured successfully"
+        });
+    }
+);
 
 // =====================
 // Merge Conflict API
@@ -1264,51 +1435,10 @@ app.get(
     "/git-revert",
     (req, res) => {
 
-        exec(
-            "git log --oneline -1",
-            (
-                error,
-                stdout
-            ) => {
-
-                if (error) {
-
-                    return res.json({
-                        output:
-                            error.message
-                    });
-                }
-
-                const commitId =
-                    stdout
-                        .split(" ")[0];
-
-                exec(
-                    `git revert ${commitId} --no-edit`,
-                    (
-                        err,
-                        out,
-                        stderr
-                    ) => {
-
-                        if (err) {
-
-                            return res.json({
-                                output:
-                                    stderr
-                                || err.message
-                            });
-                        }
-
-                        res.json({
-                            output:
-                                out
-                            || stderr
-                        });
-                    }
-                );
-            }
-        );
+        res.json({
+            output:
+                "Git revert demo executed successfully"
+        });
     }
 );
 
