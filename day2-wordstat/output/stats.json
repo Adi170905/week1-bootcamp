@@ -1,0 +1,48 @@
+{
+  "totalWords": 225000,
+  "uniqueWords": 10,
+  "longestWord": "performance",
+  "shortestWord": "async",
+  "topWords": [
+    [
+      "worker",
+      22725
+    ],
+    [
+      "memory",
+      22599
+    ],
+    [
+      "server",
+      22593
+    ],
+    [
+      "performance",
+      22561
+    ],
+    [
+      "async",
+      22545
+    ],
+    [
+      "thread",
+      22514
+    ],
+    [
+      "promise",
+      22510
+    ],
+    [
+      "nodejs",
+      22444
+    ],
+    [
+      "backend",
+      22282
+    ],
+    [
+      "javascript",
+      22227
+    ]
+  ]
+}

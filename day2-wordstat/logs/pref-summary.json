@@ -1,0 +1,7 @@
+{
+  "concurrency1": "17ms",
+  "concurrency4": "25ms",
+  "concurrency8": "49ms",
+  "totalWords": 225001,
+  "uniqueWords": 11
+}
