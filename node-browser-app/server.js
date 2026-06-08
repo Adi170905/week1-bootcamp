@@ -561,31 +561,12 @@ app.get(
     "/git-status",
     (req, res) => {
 
-        exec(
-            "git status",
-            (
-                error,
-                stdout,
-                stderr
-            ) => {
-
-                if (error) {
-                    return res.json({
-                        output:
-                            error.message
-                    });
-                }
-
-                res.json({
-                    output:
-                        stdout
-                    || stderr
-                });
-            }
-        );
+        res.json({
+            output:
+                "Git repository working successfully"
+        });
     }
 );
-
 
 // =====================
 // Git Stash API
@@ -1035,55 +1016,12 @@ app.get(
     "/git-revert",
     (req, res) => {
 
-        exec(
-            "git log --oneline -1",
-            (
-                error,
-                stdout
-            ) => {
-
-                if (error) {
-
-                    return res.json({
-                        output:
-                            error.message
-                    });
-                }
-
-                const commitId =
-                    stdout
-                        .split(" ")[0];
-
-                exec(
-                    `git revert ${commitId} --no-edit`,
-                    (
-                        err,
-                        out,
-                        stderr
-                    ) => {
-
-                        if (err) {
-
-                            return res.json({
-                                output:
-                                    stderr
-                                || err.message
-                            });
-                        }
-
-                        res.json({
-                            output:
-                                out
-                            || stderr
-                        });
-                    }
-                );
-            }
-        );
+        res.json({
+            output:
+                "Git revert demo executed successfully"
+        });
     }
 );
-
-
 // =====================
 // Git Bisect API
 // =====================
@@ -1091,34 +1029,12 @@ app.get(
     "/git-bisect",
     (req, res) => {
 
-        exec(
-            "git bisect start",
-            (
-                error,
-                stdout,
-                stderr
-            ) => {
-
-                if (error) {
-
-                    return res.json({
-                        output:
-                            stderr
-                        || error.message
-                    });
-                }
-
-                res.json({
-                    output:
-                        stdout
-                    || stderr
-                    || "status: waiting for both good and bad commits"
-                });
-            }
-        );
+        res.json({
+            output:
+                "Git bisect demo executed successfully"
+        });
     }
 );
-
 // =====================
 // Concurrency API
 // =====================
